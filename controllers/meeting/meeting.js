@@ -40,9 +40,9 @@ const add = async (req, res) => {
 const index = async (req, res) => {
   try {
     const meetings = await MeetingHistory.find({ deleted: false })
-      .populate("attendes", "name email")
-      .populate("attendesLead", "name company")
-      .populate("createBy", "name email");
+      .populate("contact", "name email")
+      .populate("lead", "name company")
+      .populate("user", "name email");
 
     res.status(200).json(meetings);
   } catch (err) {
@@ -54,9 +54,9 @@ const index = async (req, res) => {
 const view = async (req, res) => {
   try {
     const meeting = await MeetingHistory.findById(req.params.id)
-      .populate("attendes", "name email")
-      .populate("attendesLead", "name company")
-      .populate("createBy", "name email");
+      .populate("contact", "name email")
+      .populate("lead", "name company")
+      .populate("user", "name email");
 
     if (!meeting) {
       return res.status(404).json({ message: "Meeting history not found" });
